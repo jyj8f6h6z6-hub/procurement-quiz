@@ -267,7 +267,8 @@ init();
           ${x.lawText ? `<div class="law-text-box"><span class="law-text-label">對應法條</span><div class="law-text">${renderLawText(x.lawText,x.highlights)}</div></div>` : ""}
           ${x.text ? `<div class="law-explain"><span>本題重點</span>${esc(x.text)}</div>` : ""}
           <div class="study-meta">${esc(x.sourceType || "")}</div>
-          ${x.url ? `<a class="official-source-link" href="${esc(x.url)}" target="_blank" rel="noopener">查看${esc(x.sourceLabel || "官方")}現行法規 ↗</a>` : ""}
+          ${x.url ? `<a class="official-source-link" href="${esc(x.url)}" target="_blank" rel="noopener">${String(x.sourceType || "").includes("函") ? "查看工程會函釋" : `查看${esc(x.sourceLabel || "官方")}現行法規`} ↗</a>` : ""}
+          ${a.interpretationSearchUrl ? `<a class="interpretation-search-link" href="${esc(a.interpretationSearchUrl)}" target="_blank" rel="noopener">工程會解釋函查詢 ↗</a>` : ""}
         </div>`
       ).join("") + '</div>' : '<p class="study-empty">尚未建立法規／函釋資料。</p>';
     } else if (tab === "links") {

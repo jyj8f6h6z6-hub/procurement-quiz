@@ -6,7 +6,7 @@
   "conceptCovered": 3599,
   "verifiedQuestions": 30,
   "structuredPendingReview": 3569,
-  "version": "3.2.0",
+  "version": "3.3.0",
   "analyzedQuestions": 3599,
   "verifiedLawQuestions": 31,
   "lawwebHomepageLinks": 0,
@@ -23,5 +23,6 @@
   "explicitEnforcementRuleQuestionsResolved": 20,
   "topicResolvedEnforcementRuleQuestions": 1317,
   "multiRuleQuestions": 362,
-  "bareParentLawCardsRemaining": 0
+  "bareParentLawCardsRemaining": 0,
+  "interpretationAuditFlagged": 211
 }

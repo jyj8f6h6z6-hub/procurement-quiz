@@ -302,3 +302,6 @@
   min-width: 26px; height: 26px; border-radius: 8px;
   background: var(--soft, #eef2f7); font-weight: 800;
 }
+
+/* v3.3.0 工程會函釋 */
+.interpretation-search-link{display:inline-block;margin-top:8px;margin-left:10px;font-size:.86rem;font-weight:700;text-decoration:underline;text-underline-offset:3px;}
