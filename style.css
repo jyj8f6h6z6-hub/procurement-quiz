@@ -292,3 +292,13 @@
   .study-kicker-row{align-items:flex-start}
   .review-status-badge{font-size:.62rem}
 }
+
+/* v3.0.0 選項逐一解析 */
+.option-review { margin-top: 12px; }
+.option-review-list { margin-top: 8px; display: grid; gap: 8px; }
+.option-review-list p { margin: 0; line-height: 1.65; }
+.option-review-list b {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 26px; height: 26px; border-radius: 8px;
+  background: var(--soft, #eef2f7); font-weight: 800;
+}

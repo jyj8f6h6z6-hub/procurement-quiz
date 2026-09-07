@@ -6,10 +6,13 @@
   "conceptCovered": 3599,
   "verifiedQuestions": 30,
   "structuredPendingReview": 3569,
-  "version": "2.9.0",
+  "version": "3.0.0",
   "analyzedQuestions": 3599,
   "verifiedLawQuestions": 31,
   "lawwebHomepageLinks": 0,
   "vaguePlaceholderLawCards": 0,
-  "lawCardsAudited": 3601
+  "lawCardsAudited": 3601,
+  "choiceQuestionsWithOptionExplanations": 913,
+  "trueFalseQuestionsWithExplanations": 0,
+  "totalQuestionsWithExplanations": 913
 }
