@@ -3,7 +3,7 @@ const BANK = window.QUESTION_BANK || [];
 const $ = s => document.querySelector(s);
 const els = {
   home: $('#homeView'), quiz: $('#quizView'), total: $('#totalQuestions'), answered: $('#answeredCount'), accuracy: $('#accuracy'),
-  category: $('#categorySelect'), type: $('#typeSelect'), order: $('#orderSelect'), selectionCount: $('#selectionCount'),
+  category: $('#categorySelect'), type: $('#typeSelect'), order: $('#orderSelect'), selectionCount: $('#selectionCount'), startNumber: $('#startQuestionInput'), startHint: $('#startQuestionHint'),
   start: $('#startBtn'), wrong: $('#wrongBtn'), fav: $('#favoriteBtn'), wrongCount: $('#wrongCount'), favoriteCount: $('#favoriteCount'),
   reset: $('#resetStatsBtn'), fill: $('#progressFill'), progressText: $('#progressText'), theme: $('#themeBtn'),
   back: $('#backBtn'), qCategory: $('#quizCategory'), qProgress: $('#quizProgress'), qFill: $('#quizProgressFill'), star: $('#starBtn'),
@@ -21,13 +21,46 @@ function init(){
   document.documentElement.classList.toggle('dark', !!state.dark);
   els.total.textContent = BANK.length.toLocaleString();
   els.category.innerHTML = `<option value="all">全部分類</option>` + categories().map(c=>`<option value="${escapeAttr(c)}">${c}</option>`).join('');
-  updateHome(); updateSelection();
+  updateHome(); updateSelection(); updateStartRange();
 }
 function escapeAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
 function filtered(){
   return BANK.filter(q => (els.category.value==='all'||q.category===els.category.value) && (els.type.value==='all'||q.type===els.type.value));
 }
-function updateSelection(){els.selectionCount.textContent=`${filtered().length.toLocaleString()} 題`;}
+function globalQuestionNumber(q){
+  const m=String(q.id||"").match(/(\d+)/);
+  return m ? Number(m[1]) : 0;
+}
+function updateStartRange(){
+  if(!els.startNumber || !els.startHint) return;
+  const isRandom=els.order.value==='random';
+  els.startNumber.disabled=isRandom;
+  if(isRandom){
+    els.startHint.textContent='隨機模式會忽略起始題號；切回「依原題號」即可指定。';
+    return;
+  }
+  const arr=filtered();
+  if(!arr.length){
+    els.startNumber.min=1;
+    els.startNumber.removeAttribute('max');
+    els.startHint.textContent='目前篩選條件沒有題目。';
+    return;
+  }
+  if(els.category.value==='all'){
+    const nums=arr.map(globalQuestionNumber).filter(Number.isFinite);
+    const min=Math.min(...nums), max=Math.max(...nums);
+    els.startNumber.min=min; els.startNumber.max=max;
+    els.startNumber.placeholder=String(min);
+    els.startHint.textContent=`全部分類時使用「全題庫序號」${min.toLocaleString()}–${max.toLocaleString()}；例如輸入 1200，會從全題庫第 1200 題附近開始。`;
+  }else{
+    const nums=arr.map(q=>Number(q.number)).filter(Number.isFinite);
+    const min=Math.min(...nums), max=Math.max(...nums);
+    els.startNumber.min=min; els.startNumber.max=max;
+    els.startNumber.placeholder=String(min);
+    els.startHint.textContent=`目前分類使用原題號 ${min.toLocaleString()}–${max.toLocaleString()}；若該題號因題型篩選不存在，會從下一個符合題型的題目開始。`;
+  }
+}
+function updateSelection(){els.selectionCount.textContent=`${filtered().length.toLocaleString()} 題`; updateStartRange();}
 function updateHome(){
   const vals=Object.values(state.answers); const answered=vals.length; const correct=vals.filter(x=>x.correct).length;
   els.answered.textContent=answered.toLocaleString(); els.accuracy.textContent=answered?`${Math.round(correct/answered*100)}%`:'—';
@@ -38,7 +71,29 @@ function updateHome(){
 }
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function startSession(source, name='normal'){
-  let arr=[...source]; if(els.order.value==='random' || name!=='normal') shuffle(arr);
+  let arr=[...source];
+
+  if(name==='normal' && els.order.value==='sequential'){
+    const raw=els.startNumber ? els.startNumber.value.trim() : '';
+    if(raw!==''){
+      const startNo=Number(raw);
+      if(!Number.isInteger(startNo) || startNo<1){
+        alert('請輸入有效的起始題號。');
+        els.startNumber?.focus();
+        return;
+      }
+      arr = els.category.value==='all'
+        ? arr.filter(q => globalQuestionNumber(q) >= startNo)
+        : arr.filter(q => Number(q.number) >= startNo);
+      if(!arr.length){
+        alert('此起始題號之後沒有符合目前篩選條件的題目。');
+        els.startNumber?.focus();
+        return;
+      }
+    }
+  }
+
+  if(els.order.value==='random' || name!=='normal') shuffle(arr);
   if(name==='normal' && chosenCount!=='all') arr=arr.slice(0,Number(chosenCount));
   if(!arr.length){alert('目前沒有符合條件的題目。'); return;}
   session=arr; current=0; mode=name; els.home.classList.remove('active'); els.quiz.classList.add('active'); renderQuestion(); window.scrollTo({top:0});
@@ -78,7 +133,7 @@ function reveal(q,value,animate){
 function goHome(){els.quiz.classList.remove('active'); els.home.classList.add('active'); updateHome(); window.scrollTo({top:0});}
 
 document.querySelectorAll('#countButtons button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#countButtons button').forEach(x=>x.classList.remove('active'));b.classList.add('active');chosenCount=b.dataset.count==='all'?'all':Number(b.dataset.count);}));
-els.category.addEventListener('change',updateSelection); els.type.addEventListener('change',updateSelection);
+els.category.addEventListener('change',updateSelection); els.type.addEventListener('change',updateSelection); els.order.addEventListener('change',updateStartRange);
 els.start.addEventListener('click',()=>startSession(filtered(),'normal'));
 els.wrong.addEventListener('click',()=>{const ids=new Set(Object.values(state.answers).filter(x=>!x.correct).map(x=>x.id));startSession(BANK.filter(q=>ids.has(q.id)),'wrong');});
 els.fav.addEventListener('click',()=>startSession(BANK.filter(q=>state.favorites[q.id]),'favorite'));
@@ -222,7 +277,7 @@ init();
         if (!rq) return "";
         return `<div class="study-item crossref-item">
           <div class="crossref-top">
-            <strong>${esc(x.label || "相關題目")}</strong>
+            <strong>${esc(x.label || `${rq.category}｜原題號 ${rq.number}`)}</strong>
             <span class="crossref-type">${rq.type==="choice"?"選擇題":"是非題"}</span>
           </div>
           <div class="crossref-question">${esc(rq.question)}</div>
@@ -248,6 +303,19 @@ init();
     const a = annotationFor(q);
     const note = document.getElementById("quickNote");
     if (note) note.textContent = a?.quickNote || "這一題的註解與法規串珠尚待建立。";
+    const statusBadge = document.getElementById("reviewStatusBadge");
+    if (statusBadge) {
+      const lawStatus = a?.lawStatus || "";
+      const verified = lawStatus === "verified";
+      const sourceGiven = lawStatus === "source-given";
+      statusBadge.textContent = verified
+        ? "已分析・法規已核對"
+        : sourceGiven
+          ? "已分析・題庫附法源"
+          : "已分析・法規已定位";
+      statusBadge.classList.toggle("verified", verified);
+      statusBadge.classList.toggle("structured", !verified);
+    }
     const counts = {
       noteCount:(a?.notes || []).length,
       lawCount:(a?.laws || []).length,

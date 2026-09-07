@@ -11,7 +11,7 @@
   <main class="app-shell">
   <div class="app-utility-bar">
     <span class="app-version-label">版本</span>
-    <span class="app-version-number">v2.5.2</span>
+    <span class="app-version-number">v2.7.0</span>
   </div>
 <header class="topbar">
       <div>
@@ -48,6 +48,12 @@
               <option value="random">隨機</option>
             </select>
           </div>
+        </div>
+
+        <div class="start-number-block">
+          <label for="startQuestionInput">從哪一題開始</label>
+          <input id="startQuestionInput" class="start-question-input" type="number" min="1" step="1" inputmode="numeric" placeholder="1">
+          <small id="startQuestionHint" class="start-question-hint">依所選範圍的題號開始作答；留白則從第 1 題開始。</small>
         </div>
 
         <label>題數</label>
@@ -89,7 +95,10 @@
 <section id="studyPanel" class="study-panel hidden" aria-live="polite">
           <div class="study-summary">
             <div>
-              <span class="study-kicker">答題後延伸</span>
+              <div class="study-kicker-row">
+                <span class="study-kicker">答題後延伸</span>
+                <span id="reviewStatusBadge" class="review-status-badge"></span>
+              </div>
               <p id="quickNote" class="quick-note">本題尚未建立註解。</p>
             </div>
           </div>
