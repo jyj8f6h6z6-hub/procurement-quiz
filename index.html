@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <title>政府採購法題庫</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+  <div class="app-utility-bar">
+    <span class="app-version-label">版本</span>
+    <span class="app-version-number">v2.5.2</span>
+  </div>
+<header class="topbar">
+      <div>
+<h1>政府採購法題庫</h1>
+      </div>
+      <button id="themeBtn" class="icon-btn" aria-label="切換深色模式">◐</button>
+    </header>
+
+    <section id="homeView" class="view active">
+      <div class="stats-grid">
+        <article class="stat-card"><span>題庫</span><strong id="totalQuestions">0</strong><small>題</small></article>
+        <article class="stat-card"><span>已作答</span><strong id="answeredCount">0</strong><small>題</small></article>
+        <article class="stat-card"><span>正確率</span><strong id="accuracy">—</strong><small></small></article>
+      </div>
+
+      <section class="panel">
+        <div class="section-title"><h2>開始刷題</h2><span id="selectionCount" class="pill">0 題</span></div>
+        <label>範圍</label>
+        <select id="categorySelect"></select>
+
+        <div class="two-col">
+          <div>
+            <label>題型</label>
+            <select id="typeSelect">
+              <option value="all">全部題型</option>
+              <option value="choice">選擇題</option>
+              <option value="truefalse">是非題</option>
+            </select>
+          </div>
+          <div>
+            <label>出題方式</label>
+            <select id="orderSelect">
+              <option value="sequential" selected>依原題號</option>
+              <option value="random">隨機</option>
+            </select>
+          </div>
+        </div>
+
+        <label>題數</label>
+        <div class="segmented" id="countButtons">
+          <button data-count="20" class="active">20</button>
+          <button data-count="50">50</button>
+          <button data-count="100">100</button>
+          <button data-count="all">全部</button>
+        </div>
+
+        <button id="startBtn" class="primary-btn">開始刷題</button>
+        <div class="secondary-actions">
+          <button id="wrongBtn" class="ghost-btn">錯題複習 <span id="wrongCount">0</span></button>
+          <button id="favoriteBtn" class="ghost-btn">收藏題目 <span id="favoriteCount">0</span></button>
+        </div>
+      </section>
+
+      <section class="panel compact-panel">
+        <div class="section-title"><h2>學習紀錄</h2><button id="resetStatsBtn" class="text-btn">清除紀錄</button></div>
+        <div class="progress-line"><span id="progressFill"></span></div>
+        <p class="muted" id="progressText">尚未開始作答</p>
+      </section>
+    </section>
+
+    <section id="quizView" class="view">
+      <div class="quiz-head">
+        <button id="backBtn" class="icon-btn">←</button>
+        <div class="quiz-meta"><span id="quizCategory"></span><strong id="quizProgress">1 / 20</strong></div>
+        <button id="starBtn" class="icon-btn star" aria-label="收藏">☆</button>
+      </div>
+      <div class="progress-line quiz-progress"><span id="quizProgressFill"></span></div>
+
+      <article class="question-card">
+        <div class="question-labels"><span id="questionType" class="pill"></span><span id="questionNumber" class="muted"></span></div>
+        <h2 id="questionText"></h2>
+        <div id="options" class="options"></div>
+        <div id="resultBox" class="result-box hidden"></div>
+        <div id="legalBasisBox" class="legal-box hidden"></div>
+<section id="studyPanel" class="study-panel hidden" aria-live="polite">
+          <div class="study-summary">
+            <div>
+              <span class="study-kicker">答題後延伸</span>
+              <p id="quickNote" class="quick-note">本題尚未建立註解。</p>
+            </div>
+          </div>
+
+          <div class="study-tabs" role="tablist" aria-label="題目延伸資料">
+            <button class="study-tab active" data-study-tab="notes" type="button">註解 <span id="noteCount">0</span></button>
+            <button class="study-tab" data-study-tab="laws" type="button">法規 <span id="lawCount">0</span></button>
+            <button class="study-tab" data-study-tab="links" type="button">串珠 <span id="linkCount">0</span></button>
+            <button class="study-tab" data-study-tab="concepts" type="button">概念 <span id="conceptCount">0</span></button>
+          </div>
+
+          <div id="studyContent" class="study-content"></div>
+        </section>
+      </article>
+
+      <div class="quiz-nav">
+        <button id="prevBtn" class="ghost-btn">上一題</button>
+        <button id="nextBtn" class="primary-btn">下一題</button>
+      </div>
+    </section>
+</main>
+
+  <script src="data/questions.js"></script>
+  <script src="data/knowledge.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

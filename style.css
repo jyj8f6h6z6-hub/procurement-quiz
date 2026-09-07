@@ -1,0 +1,233 @@
+
+:root{--bg:#f5f7fb;--surface:#fff;--surface2:#eef2f7;--text:#111827;--muted:#6b7280;--line:#e5e7eb;--accent:#111827;--accentText:#fff;--good:#0f8a5f;--bad:#c2413b;--shadow:0 14px 40px rgba(17,24,39,.08)}
+:root.dark{--bg:#0b0f17;--surface:#121824;--surface2:#1b2432;--text:#f3f4f6;--muted:#9ca3af;--line:#273244;--accent:#f9fafb;--accentText:#111827;--shadow:none}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Noto Sans TC",sans-serif;line-height:1.55}.app-shell{max-width:760px;margin:0 auto;padding:24px 18px 48px}.topbar,.quiz-head,.section-title,.quiz-nav,.secondary-actions{display:flex;align-items:center;justify-content:space-between;gap:12px}.eyebrow{margin:0 0 3px;font-size:11px;letter-spacing:.17em;color:var(--muted);font-weight:800}.topbar h1{margin:0;font-size:29px;letter-spacing:-.03em}.view{display:none}.view.active{display:block}.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0 14px}.stat-card,.panel,.question-card{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}.stat-card{border-radius:18px;padding:16px}.stat-card span,.stat-card small{display:block;color:var(--muted);font-size:12px}.stat-card strong{font-size:27px;letter-spacing:-.04em}.panel{border-radius:22px;padding:20px;margin:14px 0}.compact-panel{padding-bottom:18px}.section-title h2{margin:0;font-size:18px}label{display:block;font-size:13px;font-weight:700;margin:17px 0 7px;color:var(--muted)}select{width:100%;border:1px solid var(--line);background:var(--surface2);color:var(--text);border-radius:13px;padding:13px 12px;font-size:15px;outline:none}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}.segmented{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface2);padding:4px;border-radius:14px}.segmented button{border:0;background:transparent;color:var(--muted);padding:10px 6px;border-radius:10px;font-weight:800}.segmented button.active{background:var(--surface);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.08)}button{font:inherit;cursor:pointer}.primary-btn,.ghost-btn{border-radius:14px;padding:13px 16px;font-weight:800;border:1px solid var(--line)}.primary-btn{width:100%;margin-top:18px;background:var(--accent);color:var(--accentText);border-color:var(--accent)}.ghost-btn{background:var(--surface);color:var(--text)}.secondary-actions{margin-top:10px}.secondary-actions .ghost-btn{flex:1}.icon-btn{width:42px;height:42px;border-radius:13px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:20px}.text-btn{border:0;background:none;color:var(--muted);padding:5px}.pill{display:inline-flex;align-items:center;border-radius:999px;background:var(--surface2);padding:5px 9px;color:var(--muted);font-size:12px;font-weight:800}.progress-line{height:7px;background:var(--surface2);border-radius:999px;overflow:hidden;margin-top:14px}.progress-line span{display:block;width:0;height:100%;background:var(--accent);border-radius:inherit;transition:width .2s}.muted{color:var(--muted);font-size:13px}.quiz-head{margin-top:8px}.quiz-meta{text-align:center;min-width:0}.quiz-meta span{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:520px}.quiz-meta strong{font-size:14px}.quiz-progress{margin:14px 0}.question-card{border-radius:22px;padding:22px;margin-top:16px}.question-labels{display:flex;align-items:center;gap:10px}.question-card h2{font-size:21px;line-height:1.55;letter-spacing:-.015em;margin:16px 0 18px}.options{display:grid;gap:10px}.option-btn{display:flex;gap:12px;text-align:left;width:100%;padding:14px;border-radius:15px;border:1px solid var(--line);background:var(--surface);color:var(--text)}.option-btn:hover{background:var(--surface2)}.option-key{flex:0 0 30px;height:30px;border-radius:9px;background:var(--surface2);display:grid;place-items:center;font-weight:900}.option-btn.selected.correct{border-color:var(--good);background:color-mix(in srgb,var(--good) 9%,var(--surface))}.option-btn.selected.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 9%,var(--surface))}.option-btn.reveal-correct{border-color:var(--good)}.option-btn:disabled{cursor:default}.result-box,.legal-box{margin-top:16px;border-radius:14px;padding:13px 14px;font-size:14px}.result-box.good{background:color-mix(in srgb,var(--good) 10%,var(--surface));color:var(--good)}.result-box.bad{background:color-mix(in srgb,var(--bad) 10%,var(--surface));color:var(--bad)}.legal-box{background:var(--surface2);color:var(--muted)}.hidden{display:none}.quiz-nav{margin-top:12px}.quiz-nav button{width:auto;min-width:120px}.quiz-nav .primary-btn{margin-top:0}.star.active{font-size:22px}.tf-btn{justify-content:center;align-items:center;font-size:17px;font-weight:800;min-height:56px}.empty-state{text-align:center;padding:18px;color:var(--muted)}
+@media(max-width:520px){.app-shell{padding:18px 13px 34px}.topbar h1{font-size:25px}.stats-grid{gap:7px}.stat-card{padding:13px 11px}.stat-card strong{font-size:23px}.panel{padding:17px}.two-col{grid-template-columns:1fr}.question-card{padding:18px 16px}.question-card h2{font-size:19px}.quiz-meta span{max-width:240px}.option-btn{padding:13px 12px}.quiz-nav button{min-width:0;flex:1}}
+
+
+/* ===== v2：恢復本式「註解／法規／串珠／概念」架構 ===== */
+.study-panel{
+  margin-top:18px;
+  border:1px solid var(--border, #e5e7eb);
+  border-radius:20px;
+  background:var(--card, #fff);
+  overflow:hidden;
+}
+.study-panel.hidden{display:none}
+.study-summary{padding:18px 18px 12px}
+.study-kicker{
+  display:inline-block;
+  font-size:.76rem;
+  font-weight:800;
+  letter-spacing:.08em;
+  color:var(--muted, #64748b);
+  margin-bottom:6px;
+}
+.quick-note{margin:0;font-size:1rem;line-height:1.65;font-weight:650}
+.study-tabs{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:6px;
+  padding:0 12px 12px;
+}
+.study-tab{
+  border:0;
+  border-radius:12px;
+  padding:10px 6px;
+  background:var(--soft, #f1f5f9);
+  color:inherit;
+  font:inherit;
+  font-size:.86rem;
+  font-weight:750;
+  cursor:pointer;
+}
+.study-tab span{opacity:.65;font-size:.75rem}
+.study-tab.active{
+  background:var(--text, #0f172a);
+  color:var(--card, #fff);
+}
+.study-content{
+  border-top:1px solid var(--border, #e5e7eb);
+  padding:16px 18px 18px;
+}
+.study-empty{
+  margin:0;
+  color:var(--muted, #64748b);
+  line-height:1.7;
+}
+.study-list{display:grid;gap:10px}
+.study-item{
+  padding:13px 14px;
+  border-radius:14px;
+  background:var(--soft, #f8fafc);
+  line-height:1.6;
+}
+.study-item strong{display:block;margin-bottom:3px}
+.study-meta{font-size:.78rem;color:var(--muted, #64748b);margin-top:4px}
+.study-link-btn{
+  width:100%;
+  text-align:left;
+  border:0;
+  cursor:pointer;
+  color:inherit;
+  font:inherit;
+}
+.concept-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin:0 6px 6px 0;
+  padding:8px 11px;
+  border-radius:999px;
+  background:var(--soft, #f1f5f9);
+  font-size:.86rem;
+  font-weight:700;
+}
+@media(max-width:560px){
+  .study-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .study-summary{padding:16px 15px 10px}
+  .study-content{padding:14px 15px 16px}
+}
+
+/* v2.1：解析區整合於題目卡片內 */
+.question-card .study-panel{
+  margin-top:12px !important;
+  border:0 !important;
+  border-top:1px solid var(--border,#e5e7eb) !important;
+  border-radius:0 !important;
+  background:transparent !important;
+}
+.question-card .study-summary{padding:14px 0 10px !important}
+.question-card .study-tabs{padding:0 0 10px !important}
+.question-card .study-content{padding:12px 0 0 !important}
+
+.official-source-link{display:inline-block;margin-top:8px;font-weight:750;text-decoration:none;color:inherit;border-bottom:1px solid currentColor}
+
+/* v2.3 法規頁籤：直接閱讀條文 */
+.law-study-item{display:block}
+.law-text-box{
+  margin:12px 0;
+  padding:14px 16px;
+  border:1px solid var(--border,#e5e7eb);
+  border-radius:14px;
+  background:rgba(15,23,42,.035);
+}
+.law-text-label{
+  display:block;
+  margin-bottom:8px;
+  font-size:.78rem;
+  font-weight:800;
+  letter-spacing:.06em;
+  color:var(--muted,#64748b);
+}
+.law-text{line-height:1.8;white-space:pre-wrap}
+.law-explain{margin:10px 0;line-height:1.7}
+.law-explain>span{display:block;font-size:.78rem;font-weight:800;color:var(--muted,#64748b);margin-bottom:4px}
+
+/* v2.4 串珠＋真正概念卡 */
+.crossref-item{display:block}.crossref-question{margin-top:7px;line-height:1.65;font-weight:600}.concept-card{display:block}.concept-block{margin-top:12px;line-height:1.75}.concept-block>span{display:block;margin-bottom:4px;font-size:.78rem;font-weight:800;color:var(--muted,#64748b)}.concept-block ul{margin:6px 0 0 1.2em;padding:0}.concept-block li{margin:4px 0}.concept-memory{margin-top:12px;padding:10px 12px;border-radius:10px;background:rgba(15,23,42,.05);font-weight:750;line-height:1.6}
+
+/* v2.5 法規重點與串珠作答 */
+.law-key{
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  font-weight: 800;
+}
+.law-text{line-height:1.9}
+.crossref-item{padding:16px !important}
+.crossref-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.crossref-type{
+  flex:0 0 auto;padding:4px 8px;border-radius:999px;
+  font-size:.72rem;font-weight:800;background:rgba(100,116,139,.10)
+}
+.crossref-question{margin:10px 0 12px;line-height:1.7;font-weight:700}
+.crossref-options{display:grid;gap:7px;margin:10px 0}
+.crossref-option{
+  display:grid;grid-template-columns:30px 1fr;gap:8px;align-items:start;
+  padding:8px 10px;border:1px solid var(--border,#e5e7eb);border-radius:10px;
+  font-size:.9rem;line-height:1.5
+}
+.crossref-option>span{font-weight:900}
+.crossref-option.is-answer{border-width:2px}
+.crossref-answer{
+  display:flex;gap:8px;align-items:flex-start;margin-top:10px;
+  padding:9px 11px;border-radius:10px;background:rgba(34,197,94,.08);line-height:1.5
+}
+.crossref-answer>span{font-size:.76rem;font-weight:800;white-space:nowrap}
+.crossref-jump-btn{
+  width:100%;margin-top:12px;padding:11px 14px;border-radius:11px;
+  border:1px solid var(--border,#e5e7eb);background:transparent;
+  font:inherit;font-weight:800;cursor:pointer
+}
+.crossref-jump-btn:hover{transform:translateY(-1px)}
+@media(max-width:640px){
+  .crossref-item{padding:14px !important}
+  .crossref-option{font-size:.86rem}
+}
+
+/* v2.5.0 版本標示 */
+.version-badge{
+  display:inline-flex;
+  align-items:center;
+  width:max-content;
+  margin:0 0 8px 2px;
+  padding:4px 8px;
+  border:1px solid var(--border,#e5e7eb);
+  border-radius:999px;
+  font-size:.72rem;
+  line-height:1;
+  font-weight:800;
+  letter-spacing:.04em;
+  color:var(--muted,#64748b);
+  background:rgba(100,116,139,.06);
+}
+
+/* v2.5.2：專業版號標示 */
+.version-badge{display:none !important;}
+
+.app-utility-bar{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:8px;
+  min-height:28px;
+  margin:0 2px 10px 0;
+  color:var(--muted,#64748b);
+  user-select:none;
+}
+
+.app-version-label{
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  opacity:.78;
+}
+
+.app-version-number{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:58px;
+  padding:5px 9px;
+  border:1px solid var(--border,#e5e7eb);
+  border-radius:8px;
+  background:rgba(100,116,139,.045);
+  font-size:.74rem;
+  line-height:1;
+  font-weight:800;
+  letter-spacing:.025em;
+  color:var(--text,#0f172a);
+  box-shadow:0 1px 2px rgba(15,23,42,.04);
+}
+
+@media(max-width:640px){
+  .app-utility-bar{margin-bottom:8px}
+  .app-version-label{font-size:.66rem}
+  .app-version-number{
+    min-width:54px;
+    padding:5px 8px;
+    font-size:.7rem;
+  }
+}
