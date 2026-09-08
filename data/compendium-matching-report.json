@@ -1,11 +1,11 @@
 {
-  "version": "3.6.1",
+  "version": "3.6.2",
   "totalQuestions": 3599,
   "matched": 3599,
   "strong": 2554,
   "weakReview": 1045,
   "highSimilarityMappings": 19,
-  "staleLawHintOverrides": 121,
+  "staleLawHintOverrides": 122,
   "unmatched": 0,
   "questions": [
     {
@@ -599,14 +599,19 @@
       "questionId": "q0034",
       "articleHint": "第9條",
       "restrictedByLawName": true,
-      "overrodeStaleLawHint": false,
-      "topScore": 0.3452,
+      "overrodeStaleLawHint": true,
+      "topScore": 1.0,
       "cards": [
         {
-          "title": "政府採購法施行細則 第9條",
+          "title": "機關委託技術服務廠商評選及計費辦法 第1條",
           "pages": [
-            501,
-            502
+            103
+          ]
+        },
+        {
+          "title": "機關委託技術服務廠商評選及計費辦法 第39條",
+          "pages": [
+            122
           ]
         }
       ],

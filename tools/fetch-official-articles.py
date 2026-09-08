@@ -114,7 +114,7 @@ def main():
             print(url, len(articles), flush=True)
         except Exception as exc:
             errors.append({"url": url, "error": str(exc)})
-    OUTPUT.write_text(json.dumps({"version": "3.6.1", "sources": sources, "errors": errors}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    OUTPUT.write_text(json.dumps({"version": "3.6.2", "sources": sources, "errors": errors}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"sources": len(sources), "errors": len(errors), "articles": sum(len(x["articles"]) for x in sources)}, ensure_ascii=False))
 
 

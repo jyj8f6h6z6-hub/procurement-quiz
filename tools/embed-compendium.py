@@ -14,7 +14,7 @@ UPLOAD = ROOT.parents[1] / "upload"
 QUESTIONS = ROOT / "data" / "questions.js"
 KNOWLEDGE = ROOT / "data" / "knowledge.js"
 
-VERSION = "3.6.1"
+VERSION = "3.6.2"
 COMPENDIUM_NAME = "行政院公共工程委員會《政府採購法令彙編第35版》"
 COMPENDIUM_URL = "https://www.pcc.gov.tw/content/index?eid=9936&type=C&lang=1"
 
@@ -491,6 +491,28 @@ def main():
             if len(chosen) >= (2 if score >= 0.18 else 1):
                 break
 
+        # 已由彙編逐條人工確認的題目，以答案所考的直接規範取代舊題庫錯置法源。
+        if qid == "q0034":
+            requested = [
+                ("機關委託技術服務廠商評選及計費辦法", "第1條"),
+                ("機關委託技術服務廠商評選及計費辦法", "第39條"),
+            ]
+            manual = []
+            for law_name, heading in requested:
+                candidates = [
+                    unit for unit in units
+                    if unit.get("displayLaw", exact_law_for_unit(unit)) == law_name
+                    and canonical_article(unit.get("heading", "")) == heading
+                ]
+                if candidates:
+                    unit = min(candidates, key=lambda item: min(item["pages"]))
+                    manual.append((1.0, unit))
+            if len(manual) == len(requested):
+                chosen = manual
+                if not overrode_stale_hint:
+                    stale_hint_overrides += 1
+                overrode_stale_hint = True
+
         old_laws = annotation.get("laws", [])
         external_cards = []
         for card in old_laws:
@@ -506,6 +528,8 @@ def main():
                 card["inlineOnly"] = True
                 card["sourcePriority"] = "official-supplement"
                 external_cards.append(card)
+        if qid == "q0034":
+            external_cards = []
 
         new_cards = []
         for score, unit in chosen:
@@ -540,6 +564,39 @@ def main():
             outside += 1
         annotation["lawStatus"] = "compendium-located" if (new_cards and (article or chosen[0][0] >= 0.18)) else ("compendium-review" if new_cards else "official-supplement")
         annotation["compendiumMatchConfidence"] = round(chosen[0][0], 4) if chosen else 0
+        if qid == "q0034":
+            annotation["quickNote"] = "適用與準用｜D｜依採購法第22條第1項第9款辦理者適用本辦法；非依該款辦理者，才是得準用。"
+            annotation["notes"] = [
+                {
+                    "title": "答案定位",
+                    "text": "本題答案為D。題幹已明示依政府採購法第22條第1項第9款辦理，因此不是『準用』《機關委託技術服務廠商評選及計費辦法》。",
+                },
+                {
+                    "title": "適用與準用",
+                    "text": "本辦法第39條以反面方式劃分：非依採購法第22條第1項第9款辦理者，才『得準用』本辦法；依該款辦理的技術服務採購則屬本辦法直接規範的案件。",
+                },
+                {
+                    "title": "彙編出處",
+                    "text": "《機關委託技術服務廠商評選及計費辦法》第1條收錄於彙編總103頁；第39條收錄於總122頁。",
+                },
+            ]
+            annotation["optionExplanations"] = [
+                {"label": "A", "text": "不是本題錯誤選項。"},
+                {"label": "B", "text": "不是本題錯誤選項。"},
+                {"label": "C", "text": "不是本題錯誤選項。"},
+                {"label": "D", "text": "錯誤。依本辦法第39條，非依採購法第22條第1項第9款辦理者才得準用；本題正是依該款辦理，不能稱為準用。"},
+            ]
+            annotation["legalReference"] = {
+                "lawName": "機關委託技術服務廠商評選及計費辦法",
+                "article": "第1條、第39條",
+                "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000676",
+            }
+            for card in annotation.get("laws", []):
+                if card.get("title", "").endswith("第39條"):
+                    card["highlights"] = [
+                        "非依本法第二十二條第一項第九款辦理者",
+                        "得準用本辦法之規定",
+                    ]
         reports.append({
             "questionId": qid,
             "articleHint": article,
