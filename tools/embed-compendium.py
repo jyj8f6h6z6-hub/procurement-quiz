@@ -1,6 +1,7 @@
 import json
 import re
 import subprocess
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -13,7 +14,7 @@ UPLOAD = ROOT.parents[1] / "upload"
 QUESTIONS = ROOT / "data" / "questions.js"
 KNOWLEDGE = ROOT / "data" / "knowledge.js"
 
-VERSION = "3.6.0"
+VERSION = "3.6.1"
 COMPENDIUM_NAME = "行政院公共工程委員會《政府採購法令彙編第35版》"
 COMPENDIUM_URL = "https://www.pcc.gov.tw/content/index?eid=9936&type=C&lang=1"
 
@@ -223,6 +224,10 @@ def official_articles():
 
 
 def exact_law_for_unit(unit):
+    # 重用已建索引時，displayLaw 已保存條文對照表中「本法／施行細則」的辨識結果。
+    # 必須優先沿用，避免標準化後的 heading 不再含「施行細則」而被反向誤判成母法。
+    if unit.get("displayLaw"):
+        return unit["displayLaw"]
     if unit["law"] == "政府採購法及其施行細則之條文對照":
         return "政府採購法施行細則" if unit["heading"].startswith("施行細則") else "政府採購法"
     return unit["law"]
@@ -376,8 +381,14 @@ def explicit_article(annotation, question):
 def main():
     questions = load_assignment(QUESTIONS, "window.QUESTION_BANK = ")
     knowledge = load_assignment(KNOWLEDGE, "window.KNOWLEDGE = ")
-    pages = load_pages()
-    units = build_units(pages)
+    existing_index = ROOT / "data" / "compendium-index.json"
+    if "--reuse-index" in sys.argv and existing_index.exists():
+        units = json.loads(existing_index.read_text(encoding="utf-8"))["units"]
+        indexed_page_count = int(knowledge.get("coverage", {}).get("compendiumIndexedPages", 674))
+    else:
+        pages = load_pages()
+        units = build_units(pages)
+        indexed_page_count = len(pages)
     official = official_articles()
     corrected_units = []
     for unit in units:
@@ -410,6 +421,7 @@ def main():
     outside = 0
     reports = []
     query_cache = {}
+    stale_hint_overrides = 0
     for qid, annotation in knowledge["annotations"].items():
         q = q_by_id[qid]
         query = compact(query_text(q, annotation))
@@ -428,6 +440,35 @@ def main():
             if exact_pool:
                 earliest = min(min(units[idx]["pages"]) for idx in exact_pool)
                 pool = [idx for idx in exact_pool if min(units[idx]["pages"]) == earliest]
+
+        # 舊題庫的 lawName 有時本身就是錯置資料。若題目沒有明示條號，且受限候選
+        # 幾乎完全不相關，允許由全彙編中顯著較高的逐字／近逐字命中覆寫舊標籤。
+        # 門檻刻意保守：全域分數至少 0.30、受限分數低於 0.08，且差距至少 0.20。
+        overrode_stale_hint = False
+        if restricted and not article:
+            restricted_scores = cosine_similarity(qvec, unit_matrix[restricted]).ravel()
+            restricted_best = float(np.max(restricted_scores)) if len(restricted_scores) else 0.0
+            global_scores = cosine_similarity(qvec, unit_matrix).ravel()
+            global_best = float(np.max(global_scores)) if len(global_scores) else 0.0
+            if restricted_best < 0.08 and global_best >= 0.30 and global_best - restricted_best >= 0.20:
+                pool = list(range(len(units)))
+                overrode_stale_hint = True
+                stale_hint_overrides += 1
+
+        # 彙編後段可能再次引述同一條文。同法規、同條號、同內容只保留總頁碼最前者，
+        # 使法規本體頁優先於後段教材、流程或附錄中的重複引文。
+        earliest_by_content = {}
+        for idx in pool:
+            unit = units[idx]
+            key = (
+                norm_law_name(unit.get("displayLaw", unit["law"])),
+                canonical_article(unit.get("heading", "")) or compact(unit.get("heading", "")),
+                compact(unit.get("text", "")),
+            )
+            previous = earliest_by_content.get(key)
+            if previous is None or min(unit["pages"]) < min(units[previous]["pages"]):
+                earliest_by_content[key] = idx
+        pool = list(earliest_by_content.values())
         scores = cosine_similarity(qvec, unit_matrix[pool]).ravel()
         order = np.argsort(scores)[::-1]
         chosen = []
@@ -503,6 +544,7 @@ def main():
             "questionId": qid,
             "articleHint": article,
             "restrictedByLawName": bool(restricted),
+            "overrodeStaleLawHint": overrode_stale_hint,
             "topScore": round(chosen[0][0], 4) if chosen else 0,
             "cards": [{"title": c[1]["law"] + " " + c[1]["heading"], "pages": c[1]["pages"]} for c in chosen],
             "externalCards": len(external_cards),
@@ -565,12 +607,13 @@ def main():
     coverage.update({
         "totalQuestions": len(questions),
         "lawCards": len(final_cards),
-        "compendiumIndexedPages": len(pages),
+        "compendiumIndexedPages": indexed_page_count,
         "compendiumUnits": len(units),
         "questionsWithCompendiumText": matched,
         "strongCompendiumMatches": strong,
         "weakCompendiumMatchesForReview": weak,
         "highSimilarityMappings": propagated,
+        "staleLawHintOverrides": stale_hint_overrides,
         "questionsWithoutCompendiumMatch": outside,
         "genericBenchmarkCardsRemaining": sum(1 for a in knowledge["annotations"].values() for c in a.get("laws", []) if c.get("status") == "source-benchmark"),
         "allDisplayedCardsContainDirectText": all(c.get("lawText") for a in knowledge["annotations"].values() for c in a.get("laws", [])),
@@ -588,10 +631,11 @@ def main():
         "strong": strong,
         "weakReview": weak,
         "highSimilarityMappings": propagated,
+        "staleLawHintOverrides": stale_hint_overrides,
         "unmatched": outside,
         "questions": reports,
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps({"pages": len(pages), "units": len(units), "matched": matched, "strong": strong, "weak": weak, "unmatched": outside}, ensure_ascii=False))
+    print(json.dumps({"pages": indexed_page_count, "units": len(units), "matched": matched, "strong": strong, "weak": weak, "unmatched": outside, "staleLawHintOverrides": stale_hint_overrides}, ensure_ascii=False))
 
 
 if __name__ == "__main__":
