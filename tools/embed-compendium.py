@@ -14,7 +14,7 @@ UPLOAD = ROOT.parents[1] / "upload"
 QUESTIONS = ROOT / "data" / "questions.js"
 KNOWLEDGE = ROOT / "data" / "knowledge.js"
 
-VERSION = "3.6.2"
+VERSION = "3.6.3"
 COMPENDIUM_NAME = "行政院公共工程委員會《政府採購法令彙編第35版》"
 COMPENDIUM_URL = "https://www.pcc.gov.tw/content/index?eid=9936&type=C&lang=1"
 
@@ -512,6 +512,27 @@ def main():
                 if not overrode_stale_hint:
                     stale_hint_overrides += 1
                 overrode_stale_hint = True
+        elif qid == "q0036":
+            requested = [
+                ("押標金保證金暨其他擔保作業辦法", "第15條"),
+                ("押標金保證金暨其他擔保作業辦法", "第18條"),
+                ("押標金保證金暨其他擔保作業辦法", "第19條"),
+            ]
+            manual = []
+            for law_name, heading in requested:
+                candidates = [
+                    unit for unit in units
+                    if unit.get("displayLaw", exact_law_for_unit(unit)) == law_name
+                    and canonical_article(unit.get("heading", "")) == heading
+                ]
+                if candidates:
+                    unit = min(candidates, key=lambda item: min(item["pages"]))
+                    manual.append((1.0, unit))
+            if len(manual) == len(requested):
+                chosen = manual
+                if not overrode_stale_hint:
+                    stale_hint_overrides += 1
+                overrode_stale_hint = True
 
         old_laws = annotation.get("laws", [])
         external_cards = []
@@ -528,7 +549,7 @@ def main():
                 card["inlineOnly"] = True
                 card["sourcePriority"] = "official-supplement"
                 external_cards.append(card)
-        if qid == "q0034":
+        if qid in {"q0034", "q0036"}:
             external_cards = []
 
         new_cards = []
@@ -597,6 +618,55 @@ def main():
                         "非依本法第二十二條第一項第九款辦理者",
                         "得準用本辦法之規定",
                     ]
+        elif qid == "q0036":
+            annotation["quickNote"] = "逐選項法規對照｜D｜5%並非法定固定比率，而是第15條容許機關於不逾10%的原則內擇定。"
+            annotation["notes"] = [
+                {
+                    "title": "答案定位",
+                    "text": "本題答案為D。第15條准許機關在招標文件中擇定履約保證金的一定比率，原則上不逾契約金額10%；5%在容許範圍內，但不是所有採購一律法定5%。",
+                },
+                {
+                    "title": "錯誤選項也要有依據",
+                    "text": "A應對照第18條、B應對照第19條；C經本辦法查核，並無一律要求廠商必須提出連帶保證廠商的規定。不能只列正確答案D的第15條。",
+                },
+            ]
+            annotation["optionReviews"] = [
+                {
+                    "label": "A", "verdict": "錯誤", "article": "押標金保證金暨其他擔保作業辦法第18條", "compendiumPage": "200",
+                    "text": "第18條規定繳納期限由機關依案件性質及實際需要合理訂定；查核金額以上採購應訂14日以上合理期限，並非一律得標後10天。",
+                },
+                {
+                    "label": "B", "verdict": "錯誤", "article": "押標金保證金暨其他擔保作業辦法第19條", "compendiumPage": "200",
+                    "text": "第19條規定得依履約進度、驗收、維修或保固等條件一次或分次發還，由機關在招標文件訂明；並非強制分2期平均發還。",
+                },
+                {
+                    "label": "C", "verdict": "錯誤", "article": "法規查核結論", "compendiumPage": "",
+                    "text": "本辦法沒有規定廠商辦理本案時必須提出連帶保證廠商；不能把可採行的擔保安排寫成一律必須具備的條件。",
+                },
+                {
+                    "label": "D", "verdict": "正確", "article": "押標金保證金暨其他擔保作業辦法第15條", "compendiumPage": "199",
+                    "text": "第15條允許機關在招標文件中擇定一定比率，原則上不逾契約金額10%；5%屬可擇定範圍，但不是法定固定比率。",
+                },
+            ]
+            annotation["optionExplanations"] = [
+                {"label": row["label"], "text": row["verdict"] + "。" + row["text"]}
+                for row in annotation["optionReviews"]
+            ]
+            annotation["legalReference"] = {
+                "lawName": "押標金保證金暨其他擔保作業辦法",
+                "article": "第15條、第18條、第19條",
+                "url": "https://lawweb.pcc.gov.tw/",
+            }
+            option_map = {"第15條": ["D"], "第18條": ["A"], "第19條": ["B"]}
+            highlight_map = {
+                "第15條": ["一定比率，以不逾契約金額之百分之十為原則"],
+                "第18條": ["由機關視案件性質及實際需要，於招標文件中合理訂定之", "應訂定十四日以上之合理期限"],
+                "第19條": ["一次或分次發還", "由機關視案件性質及實際需要，於招標文件中訂明"],
+            }
+            for card in annotation.get("laws", []):
+                article = canonical_article(card.get("title", ""))
+                card["relatedOptions"] = option_map.get(article, [])
+                card["highlights"] = highlight_map.get(article, card.get("highlights", []))
         reports.append({
             "questionId": qid,
             "articleHint": article,

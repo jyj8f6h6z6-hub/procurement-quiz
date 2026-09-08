@@ -1,11 +1,11 @@
 {
-  "version": "3.6.2",
+  "version": "3.6.3",
   "totalQuestions": 3599,
   "matched": 3599,
-  "strong": 2554,
-  "weakReview": 1045,
+  "strong": 2555,
+  "weakReview": 1044,
   "highSimilarityMappings": 19,
-  "staleLawHintOverrides": 122,
+  "staleLawHintOverrides": 123,
   "unmatched": 0,
   "questions": [
     {
@@ -635,15 +635,27 @@
     },
     {
       "questionId": "q0036",
-      "articleHint": "",
+      "articleHint": "第19條",
       "restrictedByLawName": false,
-      "overrodeStaleLawHint": false,
-      "topScore": 0.1594,
+      "overrodeStaleLawHint": true,
+      "topScore": 1.0,
       "cards": [
         {
           "title": "押標金保證金暨其他擔保作業辦法 第15條",
           "pages": [
             199
+          ]
+        },
+        {
+          "title": "押標金保證金暨其他擔保作業辦法 第18條",
+          "pages": [
+            200
+          ]
+        },
+        {
+          "title": "押標金保證金暨其他擔保作業辦法 第19條",
+          "pages": [
+            200
           ]
         }
       ],

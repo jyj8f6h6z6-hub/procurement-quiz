@@ -76,9 +76,9 @@ def main():
             page, text = future.result()
             completed[str(page)] = text
             if number % 20 == 0:
-                CACHE.write_text(json.dumps({"version": "3.6.2", "pages": completed}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+                CACHE.write_text(json.dumps({"version": "3.6.3", "pages": completed}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
                 print(f"OCR {number}/{len(jobs)}", flush=True)
-    CACHE.write_text(json.dumps({"version": "3.6.2", "pages": dict(sorted(completed.items(), key=lambda x: int(x[0])))}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    CACHE.write_text(json.dumps({"version": "3.6.3", "pages": dict(sorted(completed.items(), key=lambda x: int(x[0])))}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"ocrPages": len(completed), "newPages": len(jobs)}, ensure_ascii=False))
 
 

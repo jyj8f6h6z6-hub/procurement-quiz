@@ -256,14 +256,21 @@ init();
 
     if (tab === "notes") {
       const rows = a.notes || [];
-      box.innerHTML = rows.length ? '<div class="study-list">' + rows.map(x =>
+      const optionReviews = a.optionReviews || [];
+      const optionHtml = optionReviews.length ? `<div class="option-review-section"><h3>選項逐一法規對照</h3>${optionReviews.map(x => `
+        <div class="option-review-item">
+          <div class="option-review-head"><strong>${esc(x.label || "")}｜${esc(x.verdict || "")}</strong><span>${esc(x.article || "")}${x.compendiumPage ? `｜彙編總${esc(x.compendiumPage)}頁` : ""}</span></div>
+          <p>${esc(x.text || "")}</p>
+        </div>`).join("")}</div>` : "";
+      box.innerHTML = (rows.length || optionReviews.length) ? '<div class="study-list">' + rows.map(x =>
         `<div class="study-item"><strong>${esc(x.title || "註解")}</strong>${esc(x.text || "")}</div>`
-      ).join("") + '</div>' : '<p class="study-empty">尚無註解。</p>';
+      ).join("") + optionHtml + '</div>' : '<p class="study-empty">尚無註解。</p>';
     } else if (tab === "laws") {
       const rows = a.laws || [];
       box.innerHTML = rows.length ? '<div class="study-list">' + rows.map(x =>
         `<div class="study-item law-study-item">
           <strong>${esc(x.title || "法規依據")}</strong>
+          ${x.relatedOptions?.length ? `<div class="law-option-tags">對應選項 ${x.relatedOptions.map(esc).join("、")}</div>` : ""}
           ${x.lawText ? `<div class="law-text-box"><span class="law-text-label">對應法條</span><div class="law-text">${renderLawText(x.lawText,x.highlights)}</div></div>` : ""}
           ${x.text ? `<div class="law-explain"><span>本題重點</span>${esc(x.text)}</div>` : ""}
           <div class="study-meta">
