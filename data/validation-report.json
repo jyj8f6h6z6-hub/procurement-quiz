@@ -1,5 +1,5 @@
 {
-  "version": "3.4.0",
+  "version": "3.5.0",
   "total": 3599,
   "choice": 913,
   "truefalse": 2686,
@@ -8,5 +8,7 @@
   "brokenCrossReferences": 0,
   "emptyLawCards": 0,
   "topicResolvedCardsRemaining": 0,
-  "warnings": []
+  "warnings": [],
+  "embeddedLawArticleCards": 826,
+  "externalLawButtonsHiddenWhenEmbedded": true
 }

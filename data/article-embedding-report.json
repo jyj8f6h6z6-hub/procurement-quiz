@@ -1,0 +1,283 @@
+{
+  "version": "3.5.0",
+  "targets": 858,
+  "embedded": 803,
+  "unmatched": [
+    {
+      "questionId": "q3313",
+      "article": "第67條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000676"
+    },
+    {
+      "questionId": "q3379",
+      "article": "第89條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000676"
+    },
+    {
+      "questionId": "q3380",
+      "article": "第89條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000676"
+    },
+    {
+      "questionId": "q2146",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2147",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2151",
+      "article": "第25條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2640",
+      "article": "第22條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2805",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2806",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2807",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2808",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2810",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2811",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2814",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2815",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2818",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2819",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2820",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2823",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2824",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2825",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2826",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2828",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2831",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2832",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2833",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2834",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2835",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2836",
+      "article": "第24條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000662"
+    },
+    {
+      "questionId": "q2167",
+      "article": "第28條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL029347"
+    },
+    {
+      "questionId": "q2169",
+      "article": "第28條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL029347"
+    },
+    {
+      "questionId": "q2170",
+      "article": "第28條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL029347"
+    },
+    {
+      "questionId": "q2172",
+      "article": "第28條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL029347"
+    },
+    {
+      "questionId": "q2174",
+      "article": "第28條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL029347"
+    },
+    {
+      "questionId": "q2175",
+      "article": "第28條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL029347"
+    },
+    {
+      "questionId": "q2176",
+      "article": "第28條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL029347"
+    },
+    {
+      "questionId": "q2177",
+      "article": "第28條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL029347"
+    },
+    {
+      "questionId": "q2658",
+      "article": "第22條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL029347"
+    },
+    {
+      "questionId": "q2924",
+      "article": "第28條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL029347"
+    },
+    {
+      "questionId": "q2925",
+      "article": "第28條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL029347"
+    },
+    {
+      "questionId": "q2929",
+      "article": "第28條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL029347"
+    },
+    {
+      "questionId": "q2931",
+      "article": "第28條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL029347"
+    },
+    {
+      "questionId": "q2932",
+      "article": "第28條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL029347"
+    },
+    {
+      "questionId": "q2936",
+      "article": "第28條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL029347"
+    },
+    {
+      "questionId": "q3009",
+      "article": "第34條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL029347"
+    },
+    {
+      "questionId": "q3010",
+      "article": "第34條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL029347"
+    },
+    {
+      "questionId": "q3011",
+      "article": "第34條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL029347"
+    },
+    {
+      "questionId": "q3012",
+      "article": "第34條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL029347"
+    },
+    {
+      "questionId": "q2250",
+      "article": "第58條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000678"
+    },
+    {
+      "questionId": "q3235",
+      "article": "第66條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000678"
+    },
+    {
+      "questionId": "q3236",
+      "article": "第66條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000678"
+    },
+    {
+      "questionId": "q3237",
+      "article": "第66條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000678"
+    },
+    {
+      "questionId": "q3238",
+      "article": "第66條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000678"
+    },
+    {
+      "questionId": "q3311",
+      "article": "第65條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000678"
+    },
+    {
+      "questionId": "q3312",
+      "article": "第65條",
+      "url": "https://lawweb.pcc.gov.tw/LawContent.aspx?id=FL000678"
+    }
+  ],
+  "fetchErrors": []
+}
