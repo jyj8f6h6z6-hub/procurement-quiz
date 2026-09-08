@@ -1,0 +1,13 @@
+{
+  "version": "3.4.0",
+  "totalQuestions": 3599,
+  "baselineQuestions": 3599,
+  "removedTopicCards": 1931,
+  "affectedQuestions": 1314,
+  "retainedDirectCards": 2306,
+  "correctedExamples": [
+    "q0001",
+    "q0003"
+  ],
+  "generatedAt": "2026-09-08"
+}

@@ -307,13 +307,16 @@ init();
     const statusBadge = document.getElementById("reviewStatusBadge");
     if (statusBadge) {
       const lawStatus = a?.lawStatus || "";
-      const verified = lawStatus === "verified";
+      const verified = ["verified", "verified-regulation", "verified-interpretation"].includes(lawStatus);
       const sourceGiven = lawStatus === "source-given";
+      const baseline = lawStatus === "source-benchmark" || lawStatus === "source-corrected";
       statusBadge.textContent = verified
         ? "已分析・法規已核對"
         : sourceGiven
           ? "已分析・題庫附法源"
-          : "已分析・法規已定位";
+          : baseline
+            ? "已分析・第35版校正基準"
+            : "已分析・法規已定位";
       statusBadge.classList.toggle("verified", verified);
       statusBadge.classList.toggle("structured", !verified);
     }
