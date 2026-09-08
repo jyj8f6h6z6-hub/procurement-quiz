@@ -266,7 +266,10 @@ init();
           <strong>${esc(x.title || "法規依據")}</strong>
           ${x.lawText ? `<div class="law-text-box"><span class="law-text-label">對應法條</span><div class="law-text">${renderLawText(x.lawText,x.highlights)}</div></div>` : ""}
           ${x.text ? `<div class="law-explain"><span>本題重點</span>${esc(x.text)}</div>` : ""}
-          <div class="study-meta">${esc(x.sourceType || "")}</div>
+          <div class="study-meta">
+            <span>${esc(x.sourceType || "")}</span>
+            ${x.compendiumPage ? `<span class="compendium-page">彙編總${esc(x.compendiumPage)}頁</span>` : ""}
+          </div>
           ${x.url && !x.inlineOnly ? `<a class="official-source-link" href="${esc(x.url)}" target="_blank" rel="noopener">${String(x.sourceType || "").includes("函") ? "查看工程會函釋" : `查看${esc(x.sourceLabel || "官方")}原始資料`} ↗</a>` : ""}
           ${a.interpretationSearchUrl ? `<a class="interpretation-search-link" href="${esc(a.interpretationSearchUrl)}" target="_blank" rel="noopener">工程會解釋函查詢 ↗</a>` : ""}
         </div>`
@@ -310,14 +313,20 @@ init();
       const verified = ["verified", "verified-regulation", "verified-interpretation"].includes(lawStatus);
       const sourceGiven = lawStatus === "source-given";
       const baseline = lawStatus === "source-benchmark" || lawStatus === "source-corrected";
+      const compendiumLocated = lawStatus === "compendium-located" || lawStatus === "compendium-located-related-question";
+      const compendiumReview = lawStatus === "compendium-review";
       statusBadge.textContent = verified
         ? "已分析・法規已核對"
+        : compendiumLocated
+          ? "已分析・第35版原文已定位"
+          : compendiumReview
+            ? "已分析・第35版候選待覆核"
         : sourceGiven
           ? "已分析・題庫附法源"
           : baseline
             ? "已分析・第35版校正基準"
             : "已分析・法規已定位";
-      statusBadge.classList.toggle("verified", verified);
+      statusBadge.classList.toggle("verified", verified || compendiumLocated);
       statusBadge.classList.toggle("structured", !verified);
     }
     const counts = {

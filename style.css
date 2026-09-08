@@ -63,7 +63,8 @@
   line-height:1.6;
 }
 .study-item strong{display:block;margin-bottom:3px}
-.study-meta{font-size:.78rem;color:var(--muted, #64748b);margin-top:4px}
+.study-meta{font-size:.78rem;color:var(--muted, #64748b);margin-top:7px;display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.compendium-page{display:inline-flex;align-items:center;padding:2px 7px;border-radius:999px;background:#e8eef7;color:#334155;font-weight:750}
 .study-link-btn{
   width:100%;
   text-align:left;
